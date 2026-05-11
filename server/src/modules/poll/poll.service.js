@@ -23,10 +23,10 @@ export const createPollService = async (
             creatorId,
 
             questions: {
-                create: data.questions.map((questions) =>({
-                    text: questions.text,
+                create: data.questions.map((question) =>({
+                    text: question.text,
 
-                    required: questions.required,
+                    required: question.required,
 
                     options: {
                         create: question.options.map((option)=>({
@@ -46,6 +46,6 @@ export const createPollService = async (
             },
         },
     });
-    
+
     return poll;
 }
