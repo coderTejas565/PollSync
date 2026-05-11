@@ -1,10 +1,28 @@
-import { Router } from "express";
-import { signup, login } from "./auth.controller.js";
+import router from "../poll/poll.routes.js";
+import {
+  signup,
+  login,
+  refreshAccessToken,
+  logout,
+} from "./auth.controller.js";
+import { authMiddleware } from "../../common/middleware/auth.middleware.js";
 
+router.get(
+  "/me",
+  authMiddleware,
+  (req, res) => {
+    res.json({
+      success: true,
+      user: req.user,
+    });
+  }
+);
 
-const router = Router();
+router.post("/signup", signup);
+router.post("/login", login);
 
-router.post("/signup",signup)
-router.post("/login",login)
+router.post("/refresh", refreshAccessToken);
 
-export default router;
+router.post("/logout", logout);
+
+export default router
