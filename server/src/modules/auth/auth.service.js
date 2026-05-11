@@ -5,7 +5,7 @@ import { email } from "zod"
 export const createUser = async({
     name,
     email,
-    password
+    password,
 }) => {
     const existingUser = await prisma.user.findUnique({
         where:{
@@ -22,9 +22,37 @@ export const createUser = async({
         data: {
             name,
             email,
-            password
+            password,
         }
     })
 
     return user
+}
+
+
+export const loginUser = async({
+    name,
+    email,
+    password,
+}) => {
+    const user = await prisma.user.findUnique({
+        where:{
+            email,
+        },
+    });
+
+    if (!user) {
+        throw new Error("Invalid Credentials");
+        
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.passwor
+    );
+
+    if (!isPasswordCorrect) {
+        throw new Error("Invalid creditals");
+        
+    }
+    
+    return user;
 }
