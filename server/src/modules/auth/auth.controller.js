@@ -20,3 +20,29 @@ export const signup = async (req, res) => {
     }
 
 }
+
+export const login = async (req, res) => {
+    try {
+        const validatedData = loginSchema.parse(req.body);
+
+        const user = await loginUser(validatedData);
+
+        const token = generateToken(user.id)
+
+        res.cookie("token",token,{
+            httpOnly: true,
+            secure: false,
+            samesite: "lax"
+        })
+
+        res.status(200).json({
+            success: true,
+            user,
+        })
+    } catch (error) {
+        res.status(400).json({
+            success:false,
+            message: error.message,
+        })
+    }
+}
