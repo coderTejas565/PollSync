@@ -49,3 +49,33 @@ export const createPollService = async (
 
     return poll;
 }
+
+
+export const getPublicPollService = async(
+    slug
+) => {
+    const poll = await prisma.poll.findUnique({
+        where:{
+            slug,
+        },
+        
+        include:{
+            questions:{
+                include:{
+                    options:true,
+                }
+            }
+        }
+    });
+
+    if (!poll) {
+        throw new Error("Poll not found")
+    }
+
+    const isExpired = new Date() > new Date(poll.expiresAt)
+
+    return {
+        poll,
+        isExpired,
+    }
+}
