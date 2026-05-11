@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs"
-import prisma from "../../common/lib/prisma"
+import prisma from "../../common/lib/prisma.js"
 import { email } from "zod"
 
 export const createUser = async({
@@ -10,7 +10,7 @@ export const createUser = async({
     const existingUser = await prisma.user.findUnique({
         where:{
             email,
-        }
+        },
     })
     if (existingUser) {
         throw new Error("User already exists")
@@ -22,12 +22,12 @@ export const createUser = async({
         data: {
             name,
             email,
-            password,
-        }
+            password:hashedPassword,
+        },
     })
 
     return user
-}
+};
 
 
 export const loginUser = async({
@@ -46,13 +46,13 @@ export const loginUser = async({
         
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password, user.passwor
+    const isPasswordCorrect = await bcrypt.compare(password, user.password
     );
 
     if (!isPasswordCorrect) {
         throw new Error("Invalid creditals");
         
     }
-    
+
     return user;
 }

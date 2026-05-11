@@ -1,7 +1,6 @@
-import { createUser, loginUser } from "./auth.service";
-import { signupSchema, loginSchema } from "./auth.validator";
-import { generateToken } from "../../common/utils/generateToken";
-import { success } from "zod";
+import { createUser, loginUser } from "./auth.service.js";
+import { signupSchema, loginSchema } from "./auth.validator.js";
+import { generateToken } from "../../common/utils/generateToken.js";
 
 export const signup = async (req, res) => {
     try {
@@ -29,11 +28,11 @@ export const login = async (req, res) => {
 
         const token = generateToken(user.id)
 
-        res.cookie("token",token,{
+        res.cookie("token", token, {
             httpOnly: true,
             secure: false,
-            samesite: "lax"
-        })
+            sameSite: "lax",
+        });
 
         res.status(200).json({
             success: true,
