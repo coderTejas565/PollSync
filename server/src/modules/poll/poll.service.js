@@ -2,6 +2,7 @@ import { text } from "express";
 import prisma from "../../common/lib/prisma.js";
 import { generateSlug } from "../../common/utils/generateSlug.js";
 import { includes } from "zod";
+import { id } from "zod/v4/locales";
 
 export const createPollService = async (
     data,
@@ -149,3 +150,40 @@ export const getPollAnalyticsService =
 
     return analytics;
   };
+
+
+  export const getMyPollsService = async (userId) => {
+    const polls = await prisma.poll.findMany({
+        where: {
+            creatorId: userId
+        },
+
+        include: {
+            responses: true
+        },
+
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
+
+    return polls.map((poll) => ({
+        id: poll.id,
+
+        title: poll.title,
+
+        description: poll.description,
+
+        slug: poll.slug,
+
+        published: poll.published,
+
+        isAnonymous: poll.isAnonymous,
+
+        createdAt: poll.createdAt,
+
+        expiresAt: poll.expiresAt,
+
+        totalResponses: poll.responses.length,
+    }))
+  }
