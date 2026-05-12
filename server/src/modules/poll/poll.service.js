@@ -220,3 +220,61 @@ export const getPollAnalyticsService =
 
     return updatePoll;
   }
+
+
+  export const getPublicResultsService =
+  async (slug) => {
+    const poll = await prisma.poll.findUnique({
+      where: {
+        slug,
+      },
+
+      include: {
+        questions: {
+          include: {
+            options: {
+              include: {
+                answers: true,
+              },
+            },
+          },
+        },
+
+        responses: true,
+      },
+    });
+
+    if (!poll) {
+      throw new Error("Poll not found");
+    }
+
+    if (!poll.published) {
+      throw new Error(
+        "Results are not published yet"
+      );
+    }
+
+    return {
+      pollId: poll.id,
+
+      title: poll.title,
+
+      totalResponses:
+        poll.responses.length,
+
+      questions: poll.questions.map(
+        (question) => ({
+          question: question.text,
+
+          options: question.options.map(
+            (option) => ({
+              text: option.text,
+
+              count:
+                option.answers.length,
+            })
+          ),
+        })
+      ),
+    };
+  };
