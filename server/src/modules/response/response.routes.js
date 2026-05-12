@@ -1,11 +1,15 @@
 import { Router } from "express";
 
+import { submitResponse } from "./response.controller.js";
+
+import { optionalAuthMiddleware } from "../../common/middleware/optionalAuth.middleware.js";
+
 const router = Router();
 
-router.get("/test", (req, res) => {
-  res.json({
-    message: "Response route working",
-  });
-});
+router.post(
+  "/:pollId",
+  optionalAuthMiddleware,
+  submitResponse
+);
 
 export default router;
