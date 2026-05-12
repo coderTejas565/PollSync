@@ -1,6 +1,7 @@
 import { createPollSchema } from "./poll.validator.js";
 import { createPollService } from "./poll.service.js";
 import { getPublicPollService } from "./poll.service.js";
+import { getPollAnalyticsService } from "./poll.service.js";
 import { id } from "zod/v4/locales";
 import { text } from "express";
 
@@ -68,6 +69,26 @@ export const getPublicPoll = async (req,res) => {
     } catch (error) {
         res.status(404).json({
             success: false,
+            message: error.message,
+        })
+    }
+}
+
+
+export const getPollAnalytics = async (req,res) => {
+    try {
+        const analytics = await getPollAnalyticsService({
+            pollId: req.params.id,
+            userId: req.user.id
+        })
+
+        res.status(200).json({
+            success: true,
+            data: analytics
+        })
+    } catch (error) {
+        res.status(400).json({
+            success:false,
             message: error.message,
         })
     }
