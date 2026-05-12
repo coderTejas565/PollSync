@@ -187,3 +187,36 @@ export const getPollAnalyticsService =
         totalResponses: poll.responses.length,
     }))
   }
+
+
+  export const publishPollService = async ({
+    pollId, userId
+  }) => {
+    const poll = await prisma.poll.findUnique({
+        where: {
+            id: pollId
+        },
+    })
+
+    if (!poll) {
+        throw new Error("Poll not found");
+        
+    }
+
+    if (poll.creatorId !== userId) {
+        throw new Error("Unauthorized access");
+        
+    }
+
+    const updatePoll = await prisma.poll.update({
+        where: {
+            id: pollId,
+        },
+
+        data: {
+            published: true
+        }
+    })
+
+    return updatePoll;
+  }
