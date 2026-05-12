@@ -8,6 +8,8 @@ import { getPublicPoll } from "./poll.controller.js";
 
 import { getPollAnalytics } from "./poll.controller.js";
 
+import { getMyPolls } from "./poll.controller.js";
+
 
 
 const router = Router();
@@ -16,6 +18,8 @@ const router = Router();
 router.post("/create",authMiddleware,createPoll);
 
 router.get("/:pollId/analytics",authMiddleware,getPollAnalytics);
+
+router.get("/me",authMiddleware,getMyPolls)
 
 router.get("/:slug", getPublicPoll);
 
