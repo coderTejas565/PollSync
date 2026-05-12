@@ -1,3 +1,87 @@
+import { text } from "express";
+import prisma from "../../common/lib/prisma.js";
+import { generateSlug } from "../../common/utils/generateSlug.js";
+import { includes } from "zod";
+
+export const createPollService = async (
+    data,
+    creatorId
+) =>{
+    const slug = generateSlug(data.title)
+
+    const poll = await prisma.poll.create({
+        data: {
+            title: data.title,
+
+            description: data.description,
+
+            slug,
+
+            expiresAt: new Date(data.expiresAt),
+
+            isAnonymous: data.isAnonymous,
+
+            creatorId,
+
+            questions: {
+                create: data.questions.map((question) =>({
+                    text: question.text,
+
+                    required: question.required,
+
+                    options: {
+                        create: question.options.map((option)=>({
+                            text: option,
+                        })
+                    ),
+                    },
+                }),
+            ),
+            },
+        },
+        include:{
+            questions:{
+                include:{
+                    options:true,
+                },
+            },
+        },
+    });
+
+    return poll;
+}
+
+
+export const getPublicPollService = async(
+    slug
+) => {
+    const poll = await prisma.poll.findUnique({
+        where:{
+            slug,
+        },
+        
+        include:{
+            questions:{
+                include:{
+                    options:true,
+                }
+            }
+        }
+    });
+
+    if (!poll) {
+        throw new Error("Poll not found")
+    }
+
+    const isExpired = new Date() > new Date(poll.expiresAt)
+
+    return {
+        poll,
+        isExpired,
+    }
+}
+
+
 export const getPollAnalyticsService =
   async ({
     pollId,

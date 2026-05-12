@@ -78,7 +78,7 @@ export const getPublicPoll = async (req,res) => {
 export const getPollAnalytics = async (req,res) => {
     try {
         const analytics = await getPollAnalyticsService({
-            pollId: req.params.id,
+            pollId: req.params.pollId,
             userId: req.user.id
         })
 
