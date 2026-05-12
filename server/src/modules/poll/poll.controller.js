@@ -1,10 +1,8 @@
 import { createPollSchema } from "./poll.validator.js";
-import { createPollService } from "./poll.service.js";
-import { getPublicPollService } from "./poll.service.js";
-import { getPollAnalyticsService } from "./poll.service.js";
-import { getMyPollsService } from "./poll.service.js";
+import { createPollService,getPublicPollService,getPollAnalyticsService,getMyPollsService,publishPollService } from "./poll.service.js";
 import { id } from "zod/v4/locales";
 import { text } from "express";
+import { date } from "zod";
 
 export const createPoll = async(req,res) =>{
     try {
@@ -103,6 +101,30 @@ export const getMyPolls = async (req,res) => {
         res.status(200).json({
             success: true,
             data: polls,
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
+export const publishPoll = async (req,res) => {
+    try {
+        const poll = await publishPollService({
+            pollId: req.params.pollId,
+
+            userId: req.user.id
+        })
+
+        res.status(200).json({
+            success: true,
+
+            message: "Poll published successfully",
+            
+            date: poll
         })
     } catch (error) {
         res.status(400).json({
