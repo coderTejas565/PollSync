@@ -1,5 +1,5 @@
 import { createPollSchema } from "./poll.validator.js";
-import { createPollService ,getPublicPollService, getPollAnalyticsService, getMyPollsService, publishPollService } from "./poll.service.js";
+import { createPollService ,getPublicPollService, getPollAnalyticsService, getMyPollsService, publishPollService, getPublicResultsService } from "./poll.service.js";
 import { id } from "zod/v4/locales";
 import { text } from "express";
 import { date } from "zod";
@@ -125,6 +125,23 @@ export const publishPoll = async (req,res) => {
             message: "Poll published successfully",
             
             date: poll
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
+export const getPublicResults = async (req,res) => {
+    try {
+        const results = await getPublicResultsService(req.params.slug)
+
+        res.status(200).json({
+            success: true,
+            data: results
         })
     } catch (error) {
         res.status(400).json({
