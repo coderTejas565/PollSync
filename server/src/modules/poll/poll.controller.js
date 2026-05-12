@@ -2,6 +2,7 @@ import { createPollSchema } from "./poll.validator.js";
 import { createPollService } from "./poll.service.js";
 import { getPublicPollService } from "./poll.service.js";
 import { getPollAnalyticsService } from "./poll.service.js";
+import { getMyPollsService } from "./poll.service.js";
 import { id } from "zod/v4/locales";
 import { text } from "express";
 
@@ -90,6 +91,23 @@ export const getPollAnalytics = async (req,res) => {
         res.status(400).json({
             success:false,
             message: error.message,
+        })
+    }
+}
+
+
+export const getMyPolls = async (req,res) => {
+    try {
+        const polls = await getMyPollsService(req.user.id);
+
+        res.status(200).json({
+            success: true,
+            data: polls,
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
         })
     }
 }
