@@ -1,0 +1,13 @@
+import api from "../lib/axios";
+
+export const signupUser = async (formData) => {
+    const response = await api.post("/auth/signup",formData)
+
+    return response.data;
+}
+
+export const loginUset = async (formData) => {
+    const response = await api.post("/auth/login",formData)
+
+    return response.data;
+}
