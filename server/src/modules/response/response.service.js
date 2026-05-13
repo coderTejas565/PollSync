@@ -33,6 +33,25 @@ export const submitResponseService =
       );
     }
 
+    if (!poll.isAnonymous) {
+        if (!userId) {
+            throw new Error("Login required to submit this poll");
+            
+        }
+    }
+
+    const existingResponse = await prisma.response.findFirst({
+        where:{
+            pollId,
+            userId
+        }
+    })
+
+    if (existingResponse) {
+        throw new Error("You have already submitted this poll");
+        
+    }
+
     const requiredQuestions =
       poll.questions.filter(
         (question) => question.required
