@@ -20,3 +20,9 @@ export const createPoll = async (formData) => {
 
     return response.data
 }
+
+export const getPublicResults = async (slug) => {
+    const response = await api.get(`/polls/${slug}/results`)
+
+    return response.data;
+}
