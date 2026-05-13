@@ -17,3 +17,9 @@ export const submitResponse = async (formData) => {
 
     return response.data
 }
+
+export const getPublicPoll = async (slug) => {
+    const response = await api.get(`polls/${slug}`)
+
+    return response.data
+}
