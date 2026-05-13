@@ -10,6 +10,8 @@ import CreatePollPage from "../pages/CreatePollPage";
 
 import PublicPollPage from "../pages/PublicPollPage";
 
+import PublicResultsPage from "../pages/PublicResultsPage";
+
 export const router =
   createBrowserRouter([
     {
@@ -41,4 +43,8 @@ export const router =
       path: "/poll/:slug",
       element: <PublicPollPage />,
     },
+    {
+      path: "/poll/:slug/results",
+      element: <PublicResultsPage />
+    }
   ]);
