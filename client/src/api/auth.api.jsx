@@ -6,7 +6,7 @@ export const signupUser = async (formData) => {
     return response.data;
 }
 
-export const loginUset = async (formData) => {
+export const loginUser = async (formData) => {
     const response = await api.post("/auth/login",formData)
 
     return response.data;
