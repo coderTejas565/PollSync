@@ -5,3 +5,9 @@ export const getMyPolls = async () => {
 
     return response.data;
 }
+
+export const createPoll = async (formData) => {
+    const response = await api.post("/polls",formData)
+
+    return response.data
+}
