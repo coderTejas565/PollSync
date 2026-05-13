@@ -9,7 +9,7 @@ import { authMiddleware } from "../../common/middleware/auth.middleware.js";
 const router = Router();
 
 
-router.post("/create",authMiddleware,createPoll);
+router.post("/",authMiddleware,createPoll);
 
 router.get("/:pollId/analytics",authMiddleware,getPollAnalytics);
 

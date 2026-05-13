@@ -55,7 +55,7 @@ export const getPublicPoll = async (req,res) => {
 
                     options: question.options.map((option) => ({
                         id: option.id,
-                        text: option.id
+                        text: option.text
                     }))
                 })
             )

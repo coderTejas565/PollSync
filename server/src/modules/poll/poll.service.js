@@ -32,7 +32,7 @@ export const createPollService = async (
 
                     options: {
                         create: question.options.map((option)=>({
-                            text: option,
+                            text: option.text,
                         })
                     ),
                     },

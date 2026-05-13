@@ -1,7 +1,7 @@
 import api from "../lib/axios";
 
 export const getMyPolls = async () => {
-    const response = await api.get("/poll/me")
+    const response = await api.get("/polls/me")
 
     return response.data;
 }
@@ -15,10 +15,11 @@ export const getPublicPoll =
     return response.data;
   };
 
-export const createPoll = async (formData) => {
-    const response = await api.post("/polls",formData)
+export const createPoll =
+  async (formData) => {
+        const response = await api.post( "/polls",formData)
 
-    return response.data
+        return response.data
 }
 
 export const getPublicResults = async (slug) => {
@@ -26,3 +27,4 @@ export const getPublicResults = async (slug) => {
 
     return response.data;
 }
+

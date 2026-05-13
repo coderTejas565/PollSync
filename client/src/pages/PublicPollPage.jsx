@@ -20,9 +20,8 @@ const PublicPollPage = () => {
       async () => {
         try {
           const response =
-            await getPublicPoll(slug);
-
-          setPoll(response.data);
+          await getPublicPoll(slug);
+          setPoll(response.poll);
         } catch (error) {
           console.log(error);
         } finally {

@@ -3,7 +3,7 @@ import api from "../lib/axios";
 export const submitResponse =
   async (formData) => {
     const response = await api.post(
-      "/responses",
+      `responses/${formData.pollId}`,
       formData
     );
 
