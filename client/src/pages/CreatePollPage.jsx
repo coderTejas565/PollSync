@@ -1,7 +1,8 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { createPoll } from "../api/poll.api";
+import QuestionBlock from "../pages/QuestionBlock"
 
-const createPollPage = () => {
+const CreatePollPage = () => {
   const {register, control, handleSubmit} = useForm({
     defaultValues:{
       title: "",

@@ -11,3 +11,9 @@ export const loginUser = async (formData) => {
 
     return response.data;
 }
+
+export const submitResponse = async (formData) => {
+    const response = await api.post("/response",formData)
+
+    return response.data
+}
