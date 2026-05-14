@@ -28,3 +28,10 @@ export const getPublicResults = async (slug) => {
     return response.data;
 }
 
+export const publishPoll = async (pollId) => {
+    const response = await api.patch(
+      `/polls/${pollId}/publish`
+    );
+
+    return response.data;
+  };
