@@ -43,7 +43,7 @@ export const getPublicPoll = async (req,res) => {
 
             expiresAt: result.poll.expiresAt,
 
-            isexpired: result.poll.published,
+            isExpired: result.poll.published,
 
             questions: result.poll.questions.map(
                 (question) => ({
