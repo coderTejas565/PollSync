@@ -122,7 +122,7 @@ export const submitResponseService =
         },
       });
       
-      const totalResponses = await prisma.response.coun
+      const totalResponses = await prisma.response.count
       ({
         where: {
           pollId,

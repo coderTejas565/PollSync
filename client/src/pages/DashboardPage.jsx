@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { publishPoll, getMyPolls } from "../api/poll.api";
+import { socket } from "../lib/socket";
 
 const DashboardPage = () => {
   const [polls, setPolls] = useState([]);
@@ -11,7 +12,16 @@ const DashboardPage = () => {
     const fetchPolls = async () => {
       try {
         const response = await getMyPolls();
-        setPolls(response?.data || []);
+        const fetchedPolls = response?.data || [];
+
+        setPolls(fetchedPolls);
+
+        fetchedPolls.forEach((poll) => {
+          socket.emit(
+            "join-poll",
+            poll.id
+          );
+        });
       } catch (error) {
         setError("Failed to load polls. Please refresh the page.");
       } finally {
@@ -20,6 +30,37 @@ const DashboardPage = () => {
     };
     fetchPolls();
   }, []);
+
+
+
+useEffect(() => {
+
+  socket.on(
+    "new-response",
+    (data) => {
+
+      setPolls((prev) =>
+        prev.map((poll) =>
+          poll.id === data.pollId
+            ? {
+                ...poll,
+
+                totalResponses:
+                  data.totalResponses,
+              }
+            : poll
+        )
+      );
+    }
+  );
+
+  return () => {
+    socket.off(
+      "new-response"
+    );
+  };
+
+}, []);
 
   const handlePublish = async (pollId) => {
     try {
