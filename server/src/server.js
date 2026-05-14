@@ -1,42 +1,35 @@
+
 import http from "http";
 
 import dotenv from "dotenv"
+import { Server } from "socket.io";
+
 import app from "./app.js";
-import { Server }from "socket.io";
+
+import {registerSocketHandlers,setIO, } from "./modules/socket/socket.handler.js";
 
 dotenv.config()
 
 const server = http.createServer(app);
 
+const io = new Server(server, {
+  cors: {
+    origin:
+      "http://localhost:5173",
 
-export const io = new Server(server, {
-    cors: {
-      origin:
-        "http://localhost:5173",
+    credentials: true,
+  },
+});
 
-      credentials: true,
-    },
-  });
+setIO(io);
 
-io.on( "connection", (socket) => {
-    console.log("Socket connected:",socket.id);
+registerSocketHandlers(io);
 
-    socket.on("join-poll", (pollId) => {
-        socket.join(pollId);
-
-        console.log(`Joined room: ${pollId}`);
-      }
-    );
-
-    socket.on( "disconnect",() => {
-        console.log("Socket disconnected");
-      }
-    );
-  }
-);
-
-const PORT = process.env.PORT || 8070;
+const PORT =
+  process.env.PORT || 8070;
 
 server.listen(PORT, () => {
-  console.log(`Server running on ${PORT}`);
+  console.log(
+    `Server running on ${PORT}`
+  );
 });
