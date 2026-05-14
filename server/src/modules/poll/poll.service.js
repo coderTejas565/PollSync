@@ -74,7 +74,8 @@ export const getPublicPollService = async(
         throw new Error("Poll not found")
     }
 
-    const isExpired = new Date() > new Date(poll.expiresAt)
+    const isExpired = poll.expiresAt ? new Date() > new Date(poll.expiresAt)
+    : false;
 
     return {
         poll,
