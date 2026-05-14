@@ -39,7 +39,7 @@ export const router =
 
     {
       path: "/create",
-      element:  <ProtectedRoute> <DashboardPage />
+      element:  <ProtectedRoute> <CreatePollPage />
       </ProtectedRoute>,
     },
 
