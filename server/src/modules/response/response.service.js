@@ -1,4 +1,5 @@
 import prisma from "../../common/lib/prisma.js";
+import { getIO } from "../socket/socket.handler.js";
 
 export const submitResponseService =
   async ({
@@ -38,19 +39,19 @@ export const submitResponseService =
             throw new Error("Login required to submit this poll");
             
         }
+        const existingResponse = await prisma.response.findFirst({
+                where:{
+                    pollId,
+                    userId
+                }
+            })
+            
+            if (existingResponse) {
+                throw new Error("You have already submitted this poll");
+                
+            }
     }
 
-    const existingResponse = await prisma.response.findFirst({
-        where:{
-            pollId,
-            userId
-        }
-    })
-
-    if (existingResponse) {
-        throw new Error("You have already submitted this poll");
-        
-    }
 
     const requiredQuestions =
       poll.questions.filter(
@@ -120,6 +121,22 @@ export const submitResponseService =
           answers: true,
         },
       });
-
-    return response;
-  };
+      
+      const totalResponses = await prisma.response.coun
+      ({
+        where: {
+          pollId,
+        },
+      });
+      const io = getIO();
+      if (io) {
+        io.to(pollId).emit(
+          "new-response",
+          {
+            pollId,
+            totalResponses,
+          }
+        );
+      }
+      return response;
+    };
