@@ -12,6 +12,8 @@ import PublicPollPage from "../pages/PublicPollPage";
 
 import PublicResultsPage from "../pages/PublicResultsPage";
 
+import ProtectedRoute from "../components/ProtectedRoute";
+
 export const router =
   createBrowserRouter([
     {
@@ -31,12 +33,14 @@ export const router =
 
     {
       path: "/dashboard",
-      element: <DashboardPage />,
+      element:  <ProtectedRoute> <DashboardPage />
+      </ProtectedRoute>,
     },
 
     {
       path: "/create",
-      element: <CreatePollPage />,
+      element:  <ProtectedRoute> <DashboardPage />
+      </ProtectedRoute>,
     },
 
     {
