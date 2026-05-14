@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,7 +6,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 
 model User {
   id        String   @id @default(cuid())
@@ -24,74 +18,69 @@ model User {
   responses Response[]
 }
 
-
 model Poll {
-  id             String    @id @default(cuid())
-  title          String
-  description    String?
-  slug           String    @unique
-  expiresAt      DateTime
-  isAnonymous    Boolean   @default(true)
-  published      Boolean   @default(false)
+  id            String     @id @default(cuid())
+  title         String
+  description   String?
+  slug          String     @unique
+  expiresAt     DateTime
+  isAnonymous   Boolean    @default(true)
+  published     Boolean    @default(false)
 
-  createdAt      DateTime  @default(now())
+  createdAt     DateTime   @default(now())
 
-  creatorId      String
-  creator        User      @relation(fields: [creatorId], references: [id])
+  creatorId     String
+  creator       User       @relation(fields: [creatorId], references: [id])
 
-  questions      Question[]
-  responses      Response[]
+  questions     Question[]
+  responses     Response[]
 }
 
-
 model Question {
-  id          String    @id @default(cuid())
+  id          String     @id @default(cuid())
   text        String
-  required    Boolean   @default(false)
+  required    Boolean    @default(false)
 
   pollId      String
-  poll        Poll      @relation(fields: [pollId], references: [id])
+  poll        Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
 
   options     Option[]
   answers     Answer[]
 }
 
-
 model Option {
-  id          String    @id @default(cuid())
+  id          String     @id @default(cuid())
   text        String
 
   questionId  String
-  question    Question  @relation(fields: [questionId], references: [id])
+  question    Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   answers     Answer[]
 }
 
-
 model Response {
-  id           String    @id @default(cuid())
+  id           String     @id @default(cuid())
 
-  submittedAt  DateTime  @default(now())
+  submittedAt  DateTime   @default(now())
 
   pollId       String
-  poll         Poll      @relation(fields: [pollId], references: [id])
+  poll         Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
 
   userId       String?
-  user         User?     @relation(fields: [userId], references: [id])
+  user         User?      @relation(fields: [userId], references: [id])
 
   answers      Answer[]
 }
 
-
 model Answer {
-  id           String    @id @default(cuid())
+  id           String     @id @default(cuid())
 
   responseId   String
-  response     Response  @relation(fields: [responseId], references: [id])
+  response     Response   @relation(fields: [responseId], references: [id], onDelete: Cascade)
 
   questionId   String
-  question     Question  @relation(fields: [questionId], references: [id])
+  question     Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   optionId     String
-  option       Option    @relation(fields: [optionId], references: [id])
+  option       Option     @relation(fields: [optionId], references: [id], onDelete: Cascade)
 }
