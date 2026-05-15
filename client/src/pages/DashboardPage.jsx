@@ -237,6 +237,9 @@ useEffect(() => {
                     )}
                   </div>
 
+                  <Link to={`/dashboard/poll/${poll.id}/analytics`}> View Analytics
+</Link>
+
 <button 
   onClick={() => hadleDelete(poll.id)}
   className="

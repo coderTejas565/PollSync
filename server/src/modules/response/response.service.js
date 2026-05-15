@@ -1,5 +1,5 @@
 import prisma from "../../common/lib/prisma.js";
-import { getPollAnalytics } from "../analytics/analytics.controller.js";
+import {calculatePollAnalytics}from "../analytics/analytics.service.js";
 import { getIO } from "../socket/socket.handler.js";
 
 export const submitResponseService =
@@ -130,7 +130,7 @@ export const submitResponseService =
           pollId,
         },
       });
-      const analytics = await getPollAnalytics(pollId);
+      const analytics = await calculatePollAnalytics(pollId);
       if (io) {
         io.to(pollId).emit(
           "analytics-updated", analytics);

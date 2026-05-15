@@ -12,6 +12,8 @@ import PublicPollPage from "../pages/PublicPollPage";
 
 import PublicResultsPage from "../pages/PublicResultsPage";
 
+import AnalyticsPage from "../pages/AnalyticsPage";
+
 import ProtectedRoute from "../components/ProtectedRoute";
 
 export const router =
