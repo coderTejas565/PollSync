@@ -26,6 +26,10 @@ export const submitResponseService =
       throw new Error("Poll not found");
     }
 
+    if (poll.published) {
+      throw new Error( "Poll is published and no longer accepts responses");
+    }
+
     const isExpired =
       new Date() > new Date(poll.expiresAt);
 
