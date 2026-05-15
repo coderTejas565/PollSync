@@ -1,210 +1,100 @@
+
+---
+
+```markdown
 # PollSync — Real-Time Polling & Feedback Platform
 
-PollSync is a full-stack polling platform designed for creating, sharing, collecting, and analyzing feedback in real time.
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=flat&logo=socket.io&logoColor=white)
+![Deployed](https://img.shields.io/badge/deployed-live-brightgreen)
+
+PollSync is a full-stack polling platform for creating, sharing, and analyzing feedback in real time.
 
 Users can create polls with multiple questions, define response rules (anonymous or authenticated), set expiry times, collect responses through public links, monitor live analytics, and publish final results after polling ends.
 
-The platform focuses on complete product workflows including authentication, authorization, dynamic forms, real-time updates, analytics computation, and production deployment.
-
-Live Application:
-
-Frontend: https://poll-sync-tau.vercel.app
-
-Backend API:
-
-https://pollsync-backend.onrender.com
+**Live Application:**
+- Frontend: [poll-sync-tau.vercel.app](https://poll-sync-tau.vercel.app)
+- Backend API: [pollsync-backend.onrender.com](https://pollsync-backend.onrender.com)
 
 ---
 
 ## Problem Statement
 
-Collecting structured feedback usually requires multiple tools:
-
-- Form builders
-- Analytics dashboards
-- Authentication systems
-- Public sharing mechanisms
-- Result publishing systems
-
-PollSync combines these workflows into one product:
+Collecting structured feedback usually requires stitching together multiple tools — form builders, analytics dashboards, auth systems, and sharing mechanisms. PollSync combines these into one product:
 
 ```text
-Create Poll
-      ↓
-Share Public Link
-      ↓
-Collect Responses
-      ↓
-Monitor Live Analytics
-      ↓
-Publish Final Results
-      ↓
-Public Result Viewing
+Create Poll → Share Public Link → Collect Responses → Monitor Live Analytics → Publish Results → Public Viewing
 ```
 
 ---
 
-# Core Features
+## Core Features
 
-## Authentication & Authorization
+### Authentication & Authorization
 
-Implemented secure authentication workflows:
-
-- User registration
-- Login system
-- JWT authentication
-- Access token + refresh token flow
-- Protected routes
-- Ownership-based authorization
+- User registration and login
+- JWT with access token + refresh token flow
 - Secure cookie handling
+- Ownership-based authorization (only poll creators can manage their polls)
+- Protected routes
 
-Only poll creators can:
+### Poll Creation System
 
-- Access analytics
-- Publish results
-- Delete polls
-- Manage poll lifecycle
-
----
-
-## Poll Creation System
-
-Users can create polls with:
-
-- Multiple questions
-- Single-option responses
-- Required questions
-- Optional questions
-- Anonymous response mode
-- Authenticated response mode
-- Poll expiry dates
-
-Example structure:
+Users can create polls with multiple questions, optional/required fields, anonymous or authenticated response modes, and expiry dates.
 
 ```json
 {
   "title": "Favorite Runtime",
-
   "questions": [
     {
       "text": "Choose one",
       "required": true,
-
-      "options": [
-        "Node.js",
-        "Go",
-        "Python"
-      ]
+      "options": ["Node.js", "Go", "Python"]
     }
   ]
 }
 ```
 
----
+### Public Poll Sharing
 
-## Public Poll Sharing
+Every poll gets a public URL at `/poll/:slug`. Respondents can open the link, submit responses, and view final published results.
 
-Every poll generates a public URL:
+### Response Validation
 
-```text
-/poll/:slug
-```
+- Required questions enforced
+- Invalid options rejected
+- Duplicate submissions blocked
+- Expired or published polls cannot accept new responses
 
-Respondents can:
+### Real-Time Analytics
 
-- Open poll links
-- Submit responses
-- View final published results
-
----
-
-## Response Validation
-
-Backend validation ensures:
-
-- Required questions are answered
-- Invalid options are rejected
-- Duplicate submissions are prevented
-- Expired polls cannot accept responses
-- Published polls cannot accept new submissions
-
----
-
-## Real-Time Analytics
-
-Socket.IO powers live updates:
-
-Live dashboard updates include:
-
-- Total response counts
-- Analytics refresh
-- Participation changes
-
-No page refresh required.
-
----
-
-## Analytics Dashboard
-
-Poll creators receive analytics including:
-
-- Total responses
-- Question-level summaries
-- Option selection counts
-- Participation insights
-
-Example:
+Socket.IO powers a live dashboard that updates total response counts and question-level breakdowns without any page refresh.
 
 ```json
 {
   "totalResponses": 52,
-
   "questions": [
     {
       "question": "Favorite Runtime",
-
-      "options": [
-        {
-          "text": "Node.js",
-          "count": 30
-        }
-      ]
+      "options": [{ "text": "Node.js", "count": 30 }]
     }
   ]
 }
 ```
 
----
-
-## Poll Publishing Workflow
-
-Implemented complete poll lifecycle:
+### Poll Lifecycle
 
 ```text
-Draft
-↓
-Active Poll
-↓
-Collect Responses
-↓
-Real-Time Analytics
-↓
-Publish Results
-↓
-Voting Closed
-↓
-Public Results Available
+Draft → Active → Collecting Responses → Real-Time Analytics → Publish → Voting Closed → Public Results
 ```
 
-Once published:
-
-- Voting stops automatically
-- Responses are blocked
-- Final results become public
+Once published, voting stops automatically and final results become publicly accessible.
 
 ---
 
-# System Architecture
+## System Architecture
 
 ```text
 React + Vite
@@ -226,285 +116,151 @@ Socket.IO Events
 
 ---
 
-# Tech Stack
+## Tech Stack
 
-## Frontend
-
-- React
-- Vite
-- React Router
-- Axios
-- React Hook Form
-- TailwindCSS
-- Socket.IO Client
+| Layer | Technology |
+|---|---|
+| Frontend | React, Vite, React Router, Axios, React Hook Form, TailwindCSS, Socket.IO Client |
+| Backend | Node.js, Express.js, Prisma ORM, PostgreSQL, JWT, Zod, Socket.IO |
+| Deployment | Vercel (frontend), Render (backend), Neon PostgreSQL (database) |
 
 ---
 
-## Backend
-
-- Node.js
-- Express.js
-- Prisma ORM
-- PostgreSQL
-- JWT
-- Zod
-- Cookie Parser
-- Socket.IO
-
----
-
-## Deployment
-
-Frontend:
-
-Vercel
-
-Backend:
-
-Render
-
-Database:
-
-Neon PostgreSQL
-
----
-
-# Project Structure
+## Project Structure
 
 ```bash
-PulseBoard/
-
+PollSync/
 ├── client/
-│
-│   ├── src/
-│   │
-│   ├── api/
-│   ├── pages/
-│   ├── components/
-│   ├── routes/
-│   ├── hooks/
-│   └── utils/
-│
-├── server/
-│
-│   ├── prisma/
-│
-│   ├── src/
-│   │
-│   ├── modules/
-│   │
-│   │    ├── auth/
-│   │    ├── poll/
-│   │    ├── response/
-│   │    ├── analytics/
-│   │    └── socket/
-│   │
-│   ├── middleware/
-│   ├── common/
-│   └── config/
-│
-└── README.md
+│   └── src/
+│       ├── api/
+│       ├── pages/
+│       ├── components/
+│       ├── routes/
+│       ├── hooks/
+│       └── utils/
+└── server/
+    ├── prisma/
+    └── src/
+        ├── modules/
+        │   ├── auth/
+        │   ├── poll/
+        │   ├── response/
+        │   ├── analytics/
+        │   └── socket/
+        ├── middleware/
+        ├── common/
+        └── config/
 ```
 
 ---
 
-# API Highlights
+## API Reference
 
-Authentication:
-
-```text
+**Auth**
+```
 POST /api/auth/signup
 POST /api/auth/login
 POST /api/auth/refresh
 ```
 
-Polls:
-
-```text
-POST /api/polls
-GET /api/polls/me
-GET /api/polls/:slug
-PATCH /api/polls/:id/publish
+**Polls**
+```
+POST   /api/polls
+GET    /api/polls/me
+GET    /api/polls/:slug
+PATCH  /api/polls/:id/publish
 DELETE /api/polls/:id
 ```
 
-Responses:
-
-```text
+**Responses**
+```
 POST /api/responses/:pollId
 ```
 
-Analytics:
-
-```text
+**Analytics**
+```
 GET /api/polls/:id/analytics
 ```
 
 ---
 
-# Environment Variables
+## Socket Events
 
-Backend:
+| Event | Description |
+|---|---|
+| `join-poll` | Subscribe to a poll room |
+| `new-response` | Fired when a response is submitted |
+| `analytics-updated` | Triggers dashboard refresh |
+| `poll-published` | Notifies when poll is closed |
 
+---
+
+## Local Development Setup
+
+**Clone the repository:**
+```bash
+git clone https://github.com/coderTejas565/PollSync.git
+```
+
+**Install dependencies:**
+```bash
+# Backend
+cd server && pnpm install
+
+# Frontend
+cd client && pnpm install
+```
+
+**Set up environment variables:**
+
+Backend (`.env`):
 ```env
 PORT=
-
 DATABASE_URL=
-
 JWT_SECRET=
-
 CLIENT_URL=
-
 PRODUCTION_CLIENT_URL=
 ```
 
-Frontend:
-
+Frontend (`.env`):
 ```env
 VITE_API_URL=
 ```
 
----
-
-# Local Development Setup
-
-Clone repository:
-
-```bash
-git clone <https://github.com/coderTejas565/PollSync.git>
-```
-
-Install dependencies:
-
-Backend:
-
-```bash
-cd server
-pnpm install
-```
-
-Frontend:
-
-```bash
-cd client
-pnpm install
-```
-
-Run backend:
-
-```bash
-pnpm dev
-```
-
-Run frontend:
-
-```bash
-pnpm dev
-```
-
----
-
-# Database Setup
-
-Apply migrations:
-
+**Run database migrations:**
 ```bash
 pnpm prisma migrate dev
-```
-
-Generate Prisma client:
-
-```bash
 pnpm prisma generate
 ```
 
----
+**Start development servers:**
+```bash
+# Backend
+cd server && pnpm dev
 
-# Real-Time Events
-
-Socket events:
-
-```text
-join-poll
-
-new-response
-
-analytics-updated
-
-poll-published
+# Frontend
+cd client && pnpm dev
 ```
 
 ---
 
-# Production Challenges Solved
+## Key Challenges
 
-This project involved solving:
-
-- Cross-origin authentication
-- JWT + refresh token workflows
-- Secure cookie handling
-- Dynamic form systems
-- Prisma schema design
-- Real-time communication
-- Analytics computation
-- Poll lifecycle management
-- Production deployment
-- Socket.IO integration
-- CORS handling
-- Route rewriting for deployment
+Building PollSync involved solving some non-trivial backend problems: implementing a secure refresh token rotation flow with httpOnly cookies, handling cross-origin auth between a Vercel frontend and Render backend, designing a Prisma schema that supports flexible poll structures, and integrating Socket.IO rooms to push analytics updates to the right clients in real time.
 
 ---
 
-# Screenshots
+## Author
 
-Add screenshots for:
+**Tejas** — Backend developer (Node.js, Express, PostgreSQL)
 
-1. Dashboard
-2. Poll creation
-3. Public poll page
-4. Analytics dashboard
-5. Published results page
-
-A short demo GIF significantly improves project presentation.
+- GitHub: [@coderTejas565](https://github.com/coderTejas565)
+- LinkedIn: [tejas-null-5174b0399](https://www.linkedin.com/in/tejas-null-5174b0399/)
+- X: [@TEJAS_DEV_code](https://x.com/TEJAS_DEV_code)
 
 ---
 
-# Key Learnings
-
-Building PulseBoard required understanding:
-
-- Backend architecture patterns
-- Database schema relationships
-- Authentication systems
-- Authorization layers
-- Real-time systems
-- API design
-- Deployment workflows
-- Full-stack integration
-- Product lifecycle thinking
+Suggestions and contributions are welcome.
+```
 
 ---
-
-# Author
-
-Tejas
-
-Backend-focused developer passionate about GenAI, aiming to master system design and grow into a complete full-stack engineer.
-
-GitHub:
-
-<https://github.com/coderTejas565>
-
-LinkedIn:
-
-<https://www.linkedin.com/in/tejas-null-5174b0399/>
-
-X:
-
-<https://x.com/TEJAS_DEV_code>
-
----
-
-# Feedback
-
-Suggestions, improvements, and contributions are welcome.
