@@ -257,4 +257,3 @@ Building PollSync involved solving some non-trivial backend problems: implementi
 ---
 
 Suggestions and contributions are welcome.
-```
