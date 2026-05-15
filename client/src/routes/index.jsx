@@ -20,59 +20,54 @@ import AppLayout from "../components/AppLayout";
 
 import PublicLayout from "../components/PublicLayout";
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <AppLayout />,
-    children: [
-      {
-        path: "dashboard",
-        element: (
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "create",
-        element: (
-          <ProtectedRoute>
-            <CreatePollPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "dashboard/poll/:pollId/analytics",
-        element: (
-          <ProtectedRoute>
-            <AnalyticsPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "poll/:slug",
-        element: <PublicPollPage />,
-      },
-      {
-        path: "poll/:slug/results",
-        element: <PublicResultsPage />,
-      },
-    ],
-  },
+import ProductPage from "../pages/ProductPage";
 
-  // PUBLIC ROUTES (NO SIDEBAR)
-  {
-    path: "/",
-    element: <PublicLayout />,
-    children: [
-      {
-        path: "login",
-        element: <LoginPage />,
+export const router = createBrowserRouter([
+
+{
+   path:"/",
+   element:<PublicLayout />,
+   children:[
+
+      { index:true, element:<ProductPage /> },
+
+      { path:"login", element:<LoginPage/> },
+
+      { path:"signup", element:<SignupPage/> },
+
+      { path:"poll/:slug",
+        element:<PublicPollPage/>
       },
+
+      { path:"poll/:slug/results",
+        element:<PublicResultsPage/>
+      }
+
+   ]
+},
+
+{
+   path:"/",
+   element:<AppLayout />,
+   children:[
+
       {
-        path: "signup",
-        element: <SignupPage />,
+         path:"dashboard",
+         element:
+         <ProtectedRoute>
+            <DashboardPage/>
+         </ProtectedRoute>
       },
-    ],
-  },
+
+      {
+         path:"create",
+         element:
+         <ProtectedRoute>
+            <CreatePollPage/>
+         </ProtectedRoute>
+      }
+
+   ]
+}
+
 ]);
