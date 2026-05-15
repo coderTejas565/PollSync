@@ -8,13 +8,11 @@ import responseRoutes from "./modules/response/response.routes.js";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 
-    credentials: true,
-  })
-);
 app.use(express.json());
 app.use(cookieParser());
 
