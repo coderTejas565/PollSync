@@ -16,6 +16,51 @@ Users can create polls with multiple questions, define response rules (anonymous
 
 ---
 
+## Screenshots
+
+### Dashboard
+
+![Dashboard](./screenshots/dashboard.png)
+
+Dashboard showing created polls, response counts, and poll management.
+
+---
+
+### Poll Creation
+
+![Poll Creation](./screenshots/poll-creation1.png)
+
+![Poll Creation](./screenshots/poll-creation2.png)
+
+
+Dynamic poll builder with multiple questions, options, expiry settings, and response modes.
+
+---
+
+### Public Poll
+
+![Public Poll](./screenshots/public-poll.png)
+
+Public poll page where respondents can submit answers through shared links.
+
+---
+
+### Analytics
+
+![Analytics](./screenshots/analytics.png)
+
+Real-time analytics dashboard displaying response counts and option summaries.
+
+---
+
+### Published Results
+
+![Published Results](./screenshots/published-results.png)
+
+Final published poll results available publicly after voting closes.
+
+---
+
 ## Problem Statement
 
 Collecting structured feedback usually requires stitching together multiple tools — form builders, analytics dashboards, auth systems, and sharing mechanisms. PollSync combines these into one product:
