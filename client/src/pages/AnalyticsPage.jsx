@@ -40,6 +40,31 @@ const AnalyticsPage = () => {
 
   }, [pollId]);
 
+  useEffect(() => {
+
+  socket.emit(
+    "join-poll",
+    pollId
+  );
+
+  socket.on(
+    "analytics-updated",
+    (data) => {
+
+      setAnalytics(data);
+
+    }
+  );
+
+  return () => {
+
+    socket.off(
+      "analytics-updated"
+    );
+  };
+
+}, [pollId]);
+
   return (
     <div>
       Analytics Page
