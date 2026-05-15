@@ -203,6 +203,8 @@ useEffect(() => {
                     )}
                   </div>
 
+                  <button onClick={() => {hadleDelete(poll.id)}}>Delete</button>
+
                   <Link
                     to={`/poll/${poll.slug}/results`}
                     className="px-5 py-2 bg-[#0F172A] text-white text-xs font-bold rounded-lg hover:bg-black transition-all shadow-sm flex items-center gap-2"

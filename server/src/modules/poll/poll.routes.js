@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createPoll, getPublicPoll, getPollAnalytics, getMyPolls, publishPoll, getPublicResults } from "./poll.controller.js";
+import { createPoll, getPublicPoll, getPollAnalytics, getMyPolls, publishPoll, getPublicResults, deletePoll } from "./poll.controller.js";
 
 import { authMiddleware } from "../../common/middleware/auth.middleware.js";
 

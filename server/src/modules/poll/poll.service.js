@@ -282,7 +282,7 @@ export const getPollAnalyticsService =
 
   
   export const deletePollService = async ({pollId,userId}) => {
-    const poll = await prisma.$connect.poll.findUnique({
+    const poll = await prisma.poll.findUnique({
       where:{
         id: pollId,
       }
