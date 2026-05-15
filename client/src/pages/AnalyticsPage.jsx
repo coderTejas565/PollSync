@@ -69,103 +69,115 @@ const AnalyticsPage = () => {
   return <div>Loading...</div>;
 }
 
-if (!analytics) {
-  return (
-    <div>
-      Analytics not found
-    </div>
-  );
-}
-
 return (
   <div className="p-6 max-w-3xl mx-auto">
 
-    <h1 className="text-3xl font-bold mb-2">
-
+    <h1 className="text-3xl font-bold mb-4">
       Live Analytics
-
     </h1>
 
-    <p className="mb-6">
-
+    <h2 className="mb-6 text-lg">
       Total Responses:
       {" "}
-      {analytics.totalResponses}
+      {analytics?.totalResponses || 0}
+    </h2>
 
-    </p>
+
+    {
+      analytics?.totalResponses === 0 && (
+
+        <div className="p-6 border rounded text-gray-500">
+
+          No responses yet.
+
+          Share your poll link to collect feedback.
+
+        </div>
+
+      )
+    }
+
 
     <div className="flex flex-col gap-6">
 
-      {analytics.questions.map(
-        (question) => (
+      {
+        analytics?.questions?.map(
+          (question) => (
 
-          <div
-            key={question.questionId}
-            className="border p-4 rounded"
-          >
+            <div
+              key={question.questionId}
+              className="border p-4 rounded"
+            >
 
-            <h2 className="text-xl font-semibold mb-4">
+              <h2 className="text-xl font-semibold mb-4">
 
-              {question.question}
+                {question.question}
 
-            </h2>
+              </h2>
 
-            <div className="flex flex-col gap-3">
 
-              {question.options.map(
-                (option) => {
+              {
+                question.options.map(
+                  (option) => {
 
-                  const percentage =
-                    analytics.totalResponses > 0
-                      ? Math.round(
-                          (
-                            option.count /
-                            analytics.totalResponses
-                          ) * 100
-                        )
-                      : 0;
+                    const percentage =
+                      analytics.totalResponses > 0
+                        ? Math.round(
+                            (
+                              option.count /
+                              analytics.totalResponses
+                            ) * 100
+                          )
+                        : 0;
 
-                  return (
-                    <div
-                      key={option.optionId}
-                    >
 
-                      <div className="flex justify-between mb-1">
+                    return (
 
-                        <span>
-                          {option.text}
-                        </span>
+                      <div
+                        key={option.optionId}
+                      >
 
-                        <span>
-                          {option.count}
-                          {" "}
-                          votes
-                        </span>
+                        <div className="flex justify-between">
+
+                          <span>
+                            {option.text}
+                          </span>
+
+                          <span>
+                            {option.count}
+                            {" "}
+                            votes
+                          </span>
+
+                        </div>
+
+
+                        <div className="w-full h-4 bg-gray-200 rounded overflow-hidden mt-1">
+
+                          <div
+                            className="h-full bg-[#097FE8] transition-all duration-500"
+                            style={{
+                              width:
+                                `${percentage}%`
+                            }}
+                          />
+
+                        </div>
 
                       </div>
 
-                      <div className="w-full h-4 bg-gray-200 rounded overflow-hidden">
+                    );
 
-                        <div
-                          className="h-full bg-[#097FE8] transition-all duration-500"
-                          style={{
-                            width:
-                              `${percentage}%`,
-                          }}
-                        />
+                  }
+                )
+              }
 
-                      </div>
-
-                    </div>
-                  );
-                }
-              )}
 
             </div>
 
-          </div>
+          )
         )
-      )}
+      }
 
     </div>
 
