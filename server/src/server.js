@@ -16,9 +16,10 @@ const io = new Server(server, {
 
   cors: {
 
-    origin:
+    origin:[
       process.env.CLIENT_URL,
-
+      process.env.PRODUCTION_CLIENT_URL,
+    ],
     credentials: true,
 
   },
