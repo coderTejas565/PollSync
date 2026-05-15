@@ -42,7 +42,10 @@ export const router =
       element:  <ProtectedRoute> <CreatePollPage />
       </ProtectedRoute>,
     },
-
+    {
+      path: "/dashboard/poll/:pollId/analytics",
+      element: <ProtectedRoute><AnalyticsPage /></ProtectedRoute>,
+},
     {
       path: "/poll/:slug",
       element: <PublicPollPage />,
