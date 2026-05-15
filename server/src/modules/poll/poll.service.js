@@ -279,3 +279,32 @@ export const getPollAnalyticsService =
       ),
     };
   };
+
+  
+  export const deletePollService = async ({pollId,userId}) => {
+    const poll = await prisma.$connect.poll.findUnique({
+      where:{
+        id: pollId,
+      }
+    })
+
+    if (!poll) {
+      throw new Error("Poll not found");
+      
+    }
+
+    if (poll.creatorId !== userId) {
+      throw new Error("Unauthorized");
+      
+    }
+
+    await prisma.poll.delete({
+      where:{
+        id: pollId
+      }
+    })
+
+    return {
+      success: true
+    }
+  }
