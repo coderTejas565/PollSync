@@ -121,37 +121,61 @@ export const getPublicPollService = async(
   }
 
 
-  export const publishPollService = async ({
-    pollId, userId
-  }) => {
+export const publishPollService = async ({pollId,userId}) => {
+
     const poll = await prisma.poll.findUnique({
+
+        where: {
+            id: pollId
+        }
+
+    });
+
+    if (!poll) {
+
+        throw new Error(
+            "Poll not found"
+        );
+
+    }
+
+
+    if (poll.creatorId !== userId) {
+
+        throw new Error(
+            "Unauthorized access"
+        );
+
+    }
+
+
+    if (poll.published) {
+
+        throw new Error(
+            "Poll already published"
+        );
+
+    }
+
+
+    const updatedPoll = await prisma.poll.update({
+
         where: {
             id: pollId
         },
-    })
-
-    if (!poll) {
-        throw new Error("Poll not found");
-        
-    }
-
-    if (poll.creatorId !== userId) {
-        throw new Error("Unauthorized access");
-        
-    }
-
-    const updatePoll = await prisma.poll.update({
-        where: {
-            id: pollId,
-        },
 
         data: {
-            published: true
-        }
-    })
 
-    return updatePoll;
-  }
+            published: true
+
+        }
+
+    });
+
+
+    return updatedPoll;
+
+};
 
 
   export const getPublicResultsService =

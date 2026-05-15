@@ -91,28 +91,39 @@ export const getMyPolls = async (req,res) => {
 }
 
 
-export const publishPoll = async (req,res) => {
+export const publishPoll = async (req, res) => {
     try {
+
         const poll = await publishPollService({
+
             pollId: req.params.pollId,
 
             userId: req.user.id
-        })
+
+        });
 
         res.status(200).json({
+
             success: true,
 
             message: "Poll published successfully",
-            
-            date: poll
-        })
+
+            data: poll
+
+        });
+
     } catch (error) {
+
         res.status(400).json({
+
             success: false,
+
             message: error.message
-        })
+
+        });
+
     }
-}
+};
 
 
 export const getPublicResults = async (req,res) => {
