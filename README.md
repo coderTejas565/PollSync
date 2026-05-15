@@ -371,7 +371,7 @@ VITE_API_URL=
 Clone repository:
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/coderTejas565/PollSync.git>
 ```
 
 Install dependencies:
@@ -501,7 +501,7 @@ LinkedIn:
 
 X:
 
-@TEJAS_DEV_code
+<https://x.com/TEJAS_DEV_code>
 
 ---
 
