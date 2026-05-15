@@ -248,7 +248,7 @@ Building PollSync involved solving some non-trivial backend problems: implementi
 
 ## Author
 
-**Tejas** — Backend developer (Node.js, Express, PostgreSQL)
+**Tejas** - Backend developer (Node.js, Express, PostgreSQL)
 
 - GitHub: [@coderTejas565](https://github.com/coderTejas565)
 - LinkedIn: [tejas-null-5174b0399](https://www.linkedin.com/in/tejas-null-5174b0399/)
@@ -258,5 +258,3 @@ Building PollSync involved solving some non-trivial backend problems: implementi
 
 Suggestions and contributions are welcome.
 ```
-
----
