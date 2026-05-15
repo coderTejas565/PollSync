@@ -6,7 +6,7 @@ import { RouterProvider, } from "react-router-dom";
 
 import { router } from "./routes";
 
-import { Toast, Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast"
 
 import "./index.css";
 

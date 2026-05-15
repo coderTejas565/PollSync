@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPublicPoll } from "../api/poll.api";
 import { submitResponse } from "../api/response.api";
+import { showSuccess, showError } from "../utils/toast";
 
 const PublicPollPage = () => {
   const { slug } = useParams();
@@ -40,7 +41,7 @@ const PublicPollPage = () => {
         optionId,
       }));
       await submitResponse({ pollId: poll.id, answers: formattedAnswers });
-      alert("Response submitted successfully!");
+      showSuccess("Response submitted successfully!");
     } catch (error) {
       console.log(error);
     }

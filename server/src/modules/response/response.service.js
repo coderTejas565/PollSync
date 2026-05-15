@@ -1,4 +1,5 @@
 import prisma from "../../common/lib/prisma.js";
+import { getPollAnalytics } from "../analytics/analytics.controller.js";
 import { getIO } from "../socket/socket.handler.js";
 
 export const submitResponseService =
@@ -122,13 +123,18 @@ export const submitResponseService =
         },
       });
       
+      const io = getIO();
       const totalResponses = await prisma.response.count
       ({
         where: {
           pollId,
         },
       });
-      const io = getIO();
+      const analytics = await getPollAnalytics(pollId);
+      if (io) {
+        io.to(pollId).emit(
+          "analytics-updated", analytics);
+        }
       if (io) {
         io.to(pollId).emit(
           "new-response",
@@ -139,4 +145,4 @@ export const submitResponseService =
         );
       }
       return response;
-    };
+    }

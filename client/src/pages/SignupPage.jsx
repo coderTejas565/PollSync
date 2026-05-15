@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { signupUser } from "../api/auth.api";
 import { useNavigate, Link } from "react-router-dom";
+import { showSuccess, showError } from "../utils/toast";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -9,9 +10,11 @@ const SignupPage = () => {
   const onSubmit = async (data) => {
     try {
       await signupUser(data);
+      showSuccess( "Welcome to PollSync");
       navigate("/login");
     } catch (error) {
-      alert(error.response?.data?.message || "Signup failed");
+      showError(error.response?.data?.message ||   "Email already registered"
+);
     }
   };
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createPoll, getPublicPoll, getPollAnalytics, getMyPolls, publishPoll, getPublicResults, deletePoll } from "./poll.controller.js";
+import { createPoll, getPublicPoll, getMyPolls, publishPoll, getPublicResults, deletePoll } from "./poll.controller.js";
 
 import { authMiddleware } from "../../common/middleware/auth.middleware.js";
 
@@ -10,8 +10,6 @@ const router = Router();
 
 
 router.post("/",authMiddleware,createPoll);
-
-router.get("/:pollId/analytics",authMiddleware,getPollAnalytics);
 
 router.get("/me",authMiddleware,getMyPolls)
 

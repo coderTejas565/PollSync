@@ -1,6 +1,7 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { createPoll } from "../api/poll.api";
 import QuestionBlock from "../pages/QuestionBlock";
+import { showSuccess,showError } from "../utils/toast";
 
 const CreatePollPage = () => {
   const { register, control, handleSubmit } = useForm({
@@ -31,7 +32,7 @@ const CreatePollPage = () => {
   const onSubmit = async (data) => {
     try {
       await createPoll(data);
-      alert("Poll created successfully!");
+      showSuccess("Poll created successfully")
     } catch (error) {
       console.log(error);
     }

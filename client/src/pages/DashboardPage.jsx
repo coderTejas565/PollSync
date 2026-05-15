@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { publishPoll, getMyPolls, deletePoll } from "../api/poll.api";
 import { socket } from "../lib/socket";
+import { showSuccess,showError } from "../utils/toast";
 
 const DashboardPage = () => {
   const [polls, setPolls] = useState([]);
@@ -70,8 +71,9 @@ useEffect(() => {
           poll.id === pollId ? { ...poll, published: true } : poll
         )
       );
+     showSuccess("Results published successfully");
     } catch (error) {
-      setError("Failed to publish results.");
+      showError("Failed to publish results.");
     }
   };
 
@@ -80,6 +82,7 @@ useEffect(() => {
       await deletePoll(pollId)
 
       setPolls((prev)=> prev.filter((poll) => poll.id !== pollId))
+      showSuccess("Poll Deleted Successfully")
     } catch (error) {
       console.log(error);
       
@@ -194,16 +197,79 @@ useEffect(() => {
                       Public Link
                     </Link>
                     {!poll.published && (
+
                       <button
-                        onClick={() => handlePublish(poll.id)}
-                        className="px-4 py-2 bg-white border border-[#E2E8F0] text-[#0F172A] text-xs font-bold rounded-lg hover:bg-[#F8FAFC] transition-all"
-                      >
-                        Publish Results
-                      </button>
+  onClick={() => handlePublish(poll.id)}
+  className="
+    group
+    flex items-center gap-2
+    px-4 py-2 
+    bg-[#F0F7FF] 
+    border border-[#DBEAFE] 
+    text-[#097FE8] 
+    text-[11px] font-black uppercase tracking-widest 
+    rounded-xl 
+    hover:bg-[#097FE8] hover:text-white hover:border-[#097FE8]
+    hover:shadow-lg hover:shadow-blue-100
+    active:scale-95 
+    transition-all duration-300
+  "
+>
+  {/* Signal Icon */}
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    className="h-4 w-4" 
+    fill="none" 
+    viewBox="0 0 24 24" 
+    stroke="currentColor"
+  >
+    <path 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      strokeWidth={2.5} 
+      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" 
+    />
+  </svg>
+  
+  Publish Results
+</button>
+
                     )}
                   </div>
 
-                  <button onClick={() => {hadleDelete(poll.id)}}>Delete</button>
+<button 
+  onClick={() => hadleDelete(poll.id)}
+  className="
+    group
+    flex items-center gap-2
+    px-3 py-2 
+    rounded-xl
+    text-[11px] font-black uppercase tracking-widest
+    text-[#94A3B8] 
+    bg-transparent
+    border border-transparent
+    hover:text-red-600 hover:bg-red-50 hover:border-red-100
+    active:scale-95
+    transition-all duration-200
+  "
+>
+  {/* Modern Trash Icon */}
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    className="h-4 w-4 transition-transform group-hover:rotate-12" 
+    fill="none" 
+    viewBox="0 0 24 24" 
+    stroke="currentColor"
+  >
+    <path 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      strokeWidth={2.5} 
+      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
+    />
+  </svg>
+  Delete
+</button>
 
                   <Link
                     to={`/poll/${poll.slug}/results`}

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { loginUser } from "../api/auth.api";
 import { useNavigate, Link } from "react-router-dom";
+import { showSuccess,showError } from "../utils/toast";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -10,10 +11,12 @@ const LoginPage = () => {
     try {
       const response = await loginUser(data);
       localStorage.setItem("accessToken", response.accessToken);
-      
+      showSuccess("Welcome back");
       navigate("/dashboard");
     } catch (error) {
-      toast.error( error.response?.data?.message ||"Something went wrong");
+      showError(
+  "Invalid email or password"
+);
     }
   };
 
