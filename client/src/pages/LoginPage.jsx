@@ -13,7 +13,7 @@ const LoginPage = () => {
       
       navigate("/dashboard");
     } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
+      toast.error( error.response?.data?.message ||"Something went wrong");
     }
   };
 
