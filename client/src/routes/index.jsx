@@ -16,44 +16,53 @@ import AnalyticsPage from "../pages/AnalyticsPage";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
-export const router =
-  createBrowserRouter([
-    {
-      path: "/",
-      element: <DashboardPage />,
-    },
+import Layout from "../components/Layout";
 
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-
-    {
-      path: "/signup",
-      element: <SignupPage />,
-    },
-
-    {
-      path: "/dashboard",
-      element:  <ProtectedRoute> <DashboardPage />
-      </ProtectedRoute>,
-    },
-
-    {
-      path: "/create",
-      element:  <ProtectedRoute> <CreatePollPage />
-      </ProtectedRoute>,
-    },
-    {
-      path: "/dashboard/poll/:pollId/analytics",
-      element: <ProtectedRoute><AnalyticsPage /></ProtectedRoute>,
-},
-    {
-      path: "/poll/:slug",
-      element: <PublicPollPage />,
-    },
-    {
-      path: "/poll/:slug/results",
-      element: <PublicResultsPage />
-    }
-  ]);
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "dashboard",
+        element: (
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
+      },
+      {
+        path: "create",
+        element: (
+          <ProtectedRoute>
+            <CreatePollPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "dashboard/poll/:pollId/analytics",
+        element: (
+          <ProtectedRoute>
+            <AnalyticsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "poll/:slug",
+        element: <PublicPollPage />,
+      },
+      {
+        path: "poll/:slug/results",
+        element: <PublicResultsPage />,
+      },
+    ],
+  },
+]);
