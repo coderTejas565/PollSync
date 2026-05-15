@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { publishPoll, getMyPolls } from "../api/poll.api";
+import { publishPoll, getMyPolls, deletePoll } from "../api/poll.api";
 import { socket } from "../lib/socket";
 
 const DashboardPage = () => {
@@ -74,6 +74,17 @@ useEffect(() => {
       setError("Failed to publish results.");
     }
   };
+
+  const hadleDelete = async (pollId) => {
+    try {
+      await deletePoll(pollId)
+
+      setPolls((prev)=> prev.filter((poll) => poll.id !== pollId))
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 
   if (loading) {
     return (
