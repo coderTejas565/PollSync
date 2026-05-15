@@ -35,3 +35,10 @@ export const publishPoll = async (pollId) => {
 
     return response.data;
   };
+
+
+export const deletePoll = async (pollId) => {
+  const response = await api.delete(`/polls/${pollId}`)
+
+  return response.data
+}
