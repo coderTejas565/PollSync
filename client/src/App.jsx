@@ -1,15 +1,8 @@
-import { useState } from 'react'
-import './App.css'
-import Navbar from './components/Navbar'
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/router";
 
 function App() {
-
-  return (
-    <>
-       <Navbar />
-    <Routes />
-    </>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

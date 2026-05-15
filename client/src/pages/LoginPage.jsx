@@ -7,18 +7,21 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = async (data) => {
-    try {
-      const response = await loginUser(data);
-      localStorage.setItem("accessToken", response.accessToken);
-      showSuccess("Welcome back");
-      navigate("/dashboard");
-    } catch (error) {
-      showError(
-  "Invalid email or password"
-);
-    }
-  };
+const onSubmit = async (data) => {
+  try {
+    const response = await loginUser(data);
+
+    const { accessToken, user } = response;
+
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    showSuccess("Welcome back");
+    navigate("/dashboard");
+  } catch (error) {
+    showError("Invalid email or password");
+  }
+};
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center px-6">

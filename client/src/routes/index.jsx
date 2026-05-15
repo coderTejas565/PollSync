@@ -16,12 +16,14 @@ import AnalyticsPage from "../pages/AnalyticsPage";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
-import Layout from "../components/Layout";
+import AppLayout from "../components/AppLayout";
+
+import PublicLayout from "../components/PublicLayout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <AppLayout />,
     children: [
       {
         path: "dashboard",
@@ -30,14 +32,6 @@ export const router = createBrowserRouter([
             <DashboardPage />
           </ProtectedRoute>
         ),
-      },
-      {
-        path: "login",
-        element: <LoginPage />,
-      },
-      {
-        path: "signup",
-        element: <SignupPage />,
       },
       {
         path: "create",
@@ -62,6 +56,22 @@ export const router = createBrowserRouter([
       {
         path: "poll/:slug/results",
         element: <PublicResultsPage />,
+      },
+    ],
+  },
+
+  // PUBLIC ROUTES (NO SIDEBAR)
+  {
+    path: "/",
+    element: <PublicLayout />,
+    children: [
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
       },
     ],
   },
