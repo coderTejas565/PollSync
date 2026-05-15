@@ -1,5 +1,5 @@
 import { createPollSchema } from "./poll.validator.js";
-import { createPollService ,getPublicPollService, getPollAnalyticsService, getMyPollsService, publishPollService, getPublicResultsService} from "./poll.service.js";
+import { createPollService ,getPublicPollService, getPollAnalyticsService, getMyPollsService, publishPollService, getPublicResultsService, deletePollService} from "./poll.service.js";
 import { id } from "zod/v4/locales";
 import { text } from "express";
 import { date } from "zod";
@@ -150,3 +150,24 @@ export const getPublicResults = async (req,res) => {
         })
     }
 }
+
+
+export const deletePoll = async (req, res) => {
+    try {
+        await deletePollService({
+            pollId: req.params.id,
+            userId: req.user.id,
+        });
+        
+        res.json({
+            success: true,
+            message: "Poll deleted successfully",
+        });
+    } catch (error) {
+        
+        res.status(400).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
