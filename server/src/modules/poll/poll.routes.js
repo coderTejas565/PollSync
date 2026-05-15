@@ -17,6 +17,8 @@ router.get("/me",authMiddleware,getMyPolls)
 
 router.patch("/:pollId/publish",authMiddleware,publishPoll);
 
+router.delete("/:id",authMiddleware,deletePoll);
+
 router.get("/:slug/results",getPublicResults)
 
 router.get("/:slug", getPublicPoll);
