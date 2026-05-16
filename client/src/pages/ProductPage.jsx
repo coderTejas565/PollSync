@@ -10,6 +10,7 @@ import Testimonial from "../components/Testimonial";
 import FAQ from "../components/FAQ";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
+import LiveSimulator from "../components/LiveSimulator";
 
 const ProductPage = () => {
   const scrollToSection = (id) => {
@@ -25,6 +26,7 @@ const ProductPage = () => {
       <Hero scrollToSection={scrollToSection} />
       <ProblemSolution />
       <WhyPollSync />
+      <LiveSimulator/>
       <Features />
       <Screenshots />
       <Workflow />

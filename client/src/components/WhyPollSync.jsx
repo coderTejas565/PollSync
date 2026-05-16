@@ -1,57 +1,73 @@
 const WhyPollSync = () => {
+  const checks = [
+    "Real-time analytics",
+    "Public share links",
+    "Secure auth modes",
+    "Auto poll expiry",
+    "Result publishing",
+    "Duplicate prevention",
+  ];
+
+  const rows = [
+    { feature: "Data updates",     before: "Refresh to see",     after: "Live stream",      afterStyle: "text-[#097FE8] font-bold" },
+    { feature: "Analytics",        before: "Manual export",      after: "Live dashboard",   afterStyle: "text-emerald-600 font-bold" },
+    { feature: "Workspace",        before: "5+ tools",           after: "One dashboard",    afterStyle: "text-[#0F172A] font-bold" },
+    { feature: "Share flow",       before: "Copy embed, configure", after: "1-click link",  afterStyle: "text-[#097FE8] font-bold" },
+    { feature: "Response control", before: "Manual close",       after: "Auto-expiry",      afterStyle: "text-emerald-600 font-bold" },
+  ];
+
   return (
-    <section id="why-pollsync" className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-16">
-      <div className="text-center space-y-3 mb-16">
-        <span className="text-[10px] font-black text-[#097FE8] uppercase tracking-widest bg-[#F0F7FF] px-3 py-1 rounded-full">Product Core</span>
-        <h3 className="text-3xl sm:text-4xl font-black text-[#0F172A] tracking-tight">Why teams choose PollSync</h3>
+    <section id="why-pollsync" className="py-[72px] px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t border-[#E2E8F0] scroll-mt-16">
+
+      {/* Header */}
+      <div className="text-center">
+        <span className="inline-flex items-center px-3 py-1 bg-[#EEF6FF] border border-[#097FE8]/20 text-[#097FE8] rounded-full text-[11px] font-bold tracking-widest uppercase">
+          Why PollSync
+        </span>
+        <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-[1.1]">
+          Built different from day one.
+        </h2>
+        <p className="mt-3 text-base text-[#64748B] leading-relaxed max-w-lg mx-auto">
+          Legacy forms were designed for data collection. PollSync is designed for
+          decisions real-time, collaborative, and zero-friction.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-        {/* Left Side List */}
-        <div className="md:col-span-5 space-y-4">
-          {[
-            "Real-time analytics",
-            "Public share links",
-            "Secure authentication",
-            "Automatic poll expiry",
-            "Result publishing",
-            "Duplicate prevention"
-          ].map((check, i) => (
-            <div key={i} className="flex items-center gap-3 text-sm font-bold text-[#334155]">
-              <span className="text-[#10B981] text-base">✓</span>
-              <span>{check}</span>
-            </div>
-          ))}
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 items-start">
+
+        {/* Check list */}
+        <div>
+          <p className="text-[10px] font-extrabold text-[#94A3B8] uppercase tracking-widest mb-4">
+            What's included
+          </p>
+          <div className="flex flex-col gap-2.5">
+            {checks.map((item) => (
+              <div key={item} className="flex items-center gap-2.5 text-sm font-semibold text-[#334155]">
+                <span className="w-[22px] h-[22px] bg-emerald-50 border border-emerald-200/60 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-extrabold text-emerald-600">
+                  ✓
+                </span>
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Right Comparison Matrix Table Grid */}
-        <div className="md:col-span-7 bg-white border border-[#E2E8F0] rounded-2xl overflow-hidden shadow-sm">
-          <table className="w-full border-collapse text-left text-xs sm:text-sm">
-            <thead>
-              <tr className="bg-[#F8FAFC] border-b border-[#E2E8F0] text-[#475569] font-black uppercase tracking-wider">
-                <th className="p-4">Feature Metric</th>
-                <th className="p-4 border-l border-[#E2E8F0]">Traditional Forms</th>
-                <th className="p-4 border-l border-[#E2E8F0] text-[#097FE8]">PollSync</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#E2E8F0] font-medium text-[#334155]">
-              <tr>
-                <td className="p-4 font-bold bg-[#F8FAFC]/50">Data State</td>
-                <td className="p-4 border-l border-[#E2E8F0] text-red-500/80">Static updates</td>
-                <td className="p-4 border-l border-[#E2E8F0] font-bold text-[#097FE8]">Real-time stream</td>
-              </tr>
-              <tr>
-                <td className="p-4 font-bold bg-[#F8FAFC]/50">Metric Logs</td>
-                <td className="p-4 border-l border-[#E2E8F0]">Manual tracking</td>
-                <td className="p-4 border-l border-[#E2E8F0] font-bold text-[#10B981]">Live analytics</td>
-              </tr>
-              <tr>
-                <td className="p-4 font-bold bg-[#F8FAFC]/50">Environment</td>
-                <td className="p-4 border-l border-[#E2E8F0]">Separate systems</td>
-                <td className="p-4 border-l border-[#E2E8F0] font-bold text-[#0F172A]">One dashboard</td>
-              </tr>
-            </tbody>
-          </table>
+        {/* Comparison table */}
+        <div className="bg-white border-[1.5px] border-[#E2E8F0] rounded-2xl overflow-hidden">
+          {/* Head */}
+          <div className="grid grid-cols-3 bg-[#F8FAFC] border-b border-[#E2E8F0]">
+            <div className="p-3.5 text-[11px] font-extrabold text-[#64748B] uppercase tracking-wider">Feature</div>
+            <div className="p-3.5 text-[11px] font-extrabold text-[#64748B] uppercase tracking-wider border-l border-[#E2E8F0]">Traditional forms</div>
+            <div className="p-3.5 text-[11px] font-extrabold text-[#097FE8] uppercase tracking-wider border-l border-[#E2E8F0]">PollSync</div>
+          </div>
+
+          {rows.map((r, i) => (
+            <div key={i} className="grid grid-cols-3 border-b border-[#F1F5F9] last:border-0">
+              <div className="p-3.5 text-[13px] font-bold text-[#0F172A] bg-[#FAFBFD]">{r.feature}</div>
+              <div className="p-3.5 text-[13px] text-red-500/80 border-l border-[#E2E8F0]">{r.before}</div>
+              <div className={`p-3.5 text-[13px] border-l border-[#E2E8F0] ${r.afterStyle}`}>{r.after}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

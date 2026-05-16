@@ -67,7 +67,7 @@ const Screenshots = () => {
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
 
             <a
-              href="https://pollsync-demo.vercel.app/create"
+              href="https://poll-sync-tau.vercel.app/signup"
               target="_blank"
               rel="noreferrer"
               className="w-full px-4 py-2.5 bg-[#097FE8] text-white rounded-xl hover:bg-[#0866ba] text-center text-xs font-bold"
@@ -76,7 +76,7 @@ const Screenshots = () => {
             </a>
 
             <a
-              href="https://pollsync-demo.vercel.app/poll/demo-slug"
+              href="https://poll-sync-tau.vercel.app/login"
               target="_blank"
               rel="noreferrer"
               className="w-full px-4 py-2.5 bg-[#F1F5F9] border border-[#E2E8F0] rounded-xl text-center text-xs font-bold"

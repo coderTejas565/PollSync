@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ scrollToSection }) => {
+const Navbar2 = ({ scrollToSection }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -69,4 +69,4 @@ const Navbar = ({ scrollToSection }) => {
   );
 };
 
-export default Navbar;
+export default Navbar2;

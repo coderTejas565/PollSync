@@ -1,26 +1,38 @@
+import React from 'react';
 import { Link } from "react-router-dom";
 
-const CTA = ({ scrollToSection }) => {
+export default function CTA({ scrollToSection }) {
   return (
-    <section className="bg-[#0F172A] text-white py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-center border-b border-slate-800">
-      <div className="max-w-3xl mx-auto space-y-6">
-        <h3 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-          Collect feedback in real time.
-        </h3>
-        <p className="text-slate-400 text-xs sm:text-base max-w-md mx-auto font-medium">
-          Create polls. Track responses. Publish results. Everything from one single workspace.
+    <div className="bg-[#0F172A] py-20 px-6 text-center">
+      <div className="max-w-[580px] mx-auto">
+        <div className="inline-flex items-center gap-[7px] px-[14px] py-1 bg-[rgba(9,127,232,0.12)] border border-[rgba(9,127,232,0.3)] rounded-full text-[11px] font-bold text-[#60A5FA] mb-5">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span> 
+          Free to start · No credit card
+        </div>
+        <h2 className="text-[28px] md:text-[48px] font-extrabold text-white tracking-tight leading-[1.08] mb-4">
+          Your team's next decision<br />
+          <span className="text-[#60A5FA]">starts here.</span>
+        </h2>
+        <p className="text-sm text-[rgba(255,255,255,0.5)] leading-[1.7] max-w-[420px] mb-7 mx-auto">
+          Create a poll in 30 seconds. Watch responses stream in live. Share the outcome with one click.
         </p>
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-sm mx-auto">
-          <Link to="/create" className="w-full bg-[#097FE8] hover:bg-[#0866ba] text-white px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest text-center shadow-lg shadow-blue-500/10 active:scale-[0.99] transition-all">
-            Start Creating
-          </Link>
-          <button onClick={() => scrollToSection("demo")} className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest text-center transition-all">
-            Try Demo Poll
+        <div className="flex gap-3 justify-center flex-wrap">
+          <button className="bg-[#097FE8] text-white border-none py-[14px] px-8 rounded-xl text-sm font-bold cursor-pointer shadow-[0_8px_24px_rgba(9,127,232,0.35)] transition-all duration-150 hover:bg-[#0866BA] hover:-translate-y-px">
+            <Link to="/create" >
+            Launch free poll →
+                </Link>
+          </button>
+          <button onClick={() => scrollToSection("demo")} className="bg-transparent text-[rgba(255,255,255,0.7)] border-[1.5px] border-[rgba(255,255,255,0.12)] py-3 px-7 rounded-xl text-sm font-semibold cursor-pointer transition-all duration-150 hover:border-[rgba(255,255,255,0.25)] hover:text-white">
+            Try the demo
           </button>
         </div>
+        <p className="mt-6 text-xs text-[rgba(255,255,255,0.25)]">
+          No credit card · Free forever on starter · Edge-deployed worldwide
+        </p>
       </div>
-    </section>
+    </div>
   );
-};
+}
 
-export default CTA;
+
+
